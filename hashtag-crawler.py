@@ -28,10 +28,17 @@ def leaders(hashtag, sorttweets, top=50):
     counts = defaultdict(int)
     for x in sorttweets:
         counts[x] += 1
-    filename = f'{hashtag}_tweet_top50.csv'
+    filename = f'temp_{hashtag}_tweet_top50.csv'
+    uploadfile = f'{hashtag}_tweet_top50.csv'
     stand = sorted(counts.items(), reverse=True, key=lambda tup: tup[1])[:top]
     pd.DataFrame(stand).to_csv(filename, header=['Tweep', 'Aantal'])
-    return stand
+    # TODO: simplify this, remove initial row
+    with open(filename, 'r') as r:
+        reader = csv.reader(r)
+        with open(uploadfile, 'w') as w:
+            writer = csv.writer(w)
+            for r in reader:
+                writer.writerow((r[1], r[2]))
 
 def writetweets(hashtag, tweets):
     filename = f"{hashtag}_tweets.csv"
