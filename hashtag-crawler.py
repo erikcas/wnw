@@ -3,10 +3,12 @@
 import tweepy
 import csv
 import pandas as pd
-import datetime
+#import datetime
+from datetime import datetime
 import time
 import sys
-from collections import Counter, defaultdict
+from collections import defaultdict
+from wnw_hourly import wnw_data, plot_data
 
 # Get the twitter credentials from a (hidden) file
 secrets = open(".login")
@@ -53,13 +55,19 @@ def getweets(hashtag, datum):
     csvFile = open(outputfile, 'a')
     csvWriter = csv.writer(csvFile)
 
-    hashtweets = []
-    sorttweets = []
+    hashtweets, sorttweets, datatweets = [], [], []
+
     hashtwit =f'#{hashtag}'
     for tweet in tweepy.Cursor(api.search, q = hashtwit,
             since=datum,count=200).items():
         try:
+            # De gebruikers voor de tussenstand
             sorttweets.append(tweet.user.screen_name)
+            # De tweettijden voor de leuke grafiekjes
+            temptijd = tweet.created_at
+            temptijd = temptijd.replace(minute=0, second=0)
+            datatweets.append(temptijd)
+            # De totaal info
             hashtweets.append([tweet.user.screen_name, tweet.id_str, tweet.created_at, tweet.text.encode('utf-8'),])
         except tweepy.TweepError:
             print('Sleep for a while')
@@ -67,9 +75,9 @@ def getweets(hashtag, datum):
             continue
 
     writetweets(hashtag, hashtweets)
-    print(sorttweets)
     testing = leaders(hashtag, sorttweets)
-    print(testing)
+    wnw_data(hashtag, datatweets)
+    plot_data(hashtag, datatweets)
     
 
 try:
