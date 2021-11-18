@@ -9,6 +9,7 @@ import time
 import sys
 from collections import defaultdict
 from wnw_hourly import wnw_data, plot_data
+from print import print_table
 
 # Get the twitter credentials from a (hidden) file
 secrets = open(".login")
@@ -78,6 +79,7 @@ def getweets(hashtag, datum):
     testing = leaders(hashtag, sorttweets)
     wnw_data(hashtag, datatweets)
     plot_data(hashtag, datatweets)
+    print_table(hashtag, sorttweets)
     
 
 try:
