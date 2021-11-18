@@ -9,7 +9,8 @@ import time
 import sys
 from collections import defaultdict
 from wnw_hourly import wnw_data, plot_data
-from print import print_table
+from printer import print_table
+from post import post_twitter
 
 # Get the twitter credentials from a (hidden) file
 secrets = open(".login")
@@ -44,8 +45,9 @@ def leaders(hashtag, sorttweets, top=50):
                 writer.writerow((r[1], r[2]))
 
 def writetweets(hashtag, tweets):
+    counter = 0
     filename = f"{hashtag}_tweets.csv"
-    with open(filename, 'a') as f:
+    with open(filename, 'w') as f:
         writer = csv.writer(f)
         writer.writerow(["screen_name", "id", "created_at", "trucated text"])
         writer.writerows(tweets)
@@ -59,6 +61,7 @@ def getweets(hashtag, datum):
     hashtweets, sorttweets, datatweets = [], [], []
 
     hashtwit =f'#{hashtag}'
+    counter = 0
     for tweet in tweepy.Cursor(api.search, q = hashtwit,
             since=datum,count=200).items():
         try:
@@ -74,12 +77,13 @@ def getweets(hashtag, datum):
             print('Sleep for a while')
             time.sleep(60 * 15)
             continue
+        counter += 1
 
     writetweets(hashtag, hashtweets)
-    testing = leaders(hashtag, sorttweets)
     wnw_data(hashtag, datatweets)
     plot_data(hashtag, datatweets)
     print_table(hashtag, sorttweets)
+    post_twitter(hashtag, counter)
     
 
 try:
