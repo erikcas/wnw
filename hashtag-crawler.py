@@ -81,6 +81,7 @@ def getweets(hashtag, datum):
     writetweets(hashtag, hashtweets)
     wnw_data(hashtag, datatweets)
     plot_data(hashtag, datatweets)
+    leaders(hashtag, sorttweets)
     print_table(hashtag, sorttweets)
     post_twitter(hashtag, counter)
     
