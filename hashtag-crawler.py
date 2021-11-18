@@ -45,7 +45,6 @@ def leaders(hashtag, sorttweets, top=50):
                 writer.writerow((r[1], r[2]))
 
 def writetweets(hashtag, tweets):
-    counter = 0
     filename = f"{hashtag}_tweets.csv"
     with open(filename, 'w') as f:
         writer = csv.writer(f)
