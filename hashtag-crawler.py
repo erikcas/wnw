@@ -8,7 +8,7 @@ from datetime import datetime
 import time
 import sys
 from collections import defaultdict
-from wnw_hourly import wnw_data, plot_data
+from tag_hourly import tag_data, plot_data
 from printer import print_table
 from post import post_twitter
 
@@ -79,7 +79,7 @@ def getweets(hashtag, datum):
         counter += 1
 
     writetweets(hashtag, hashtweets)
-    wnw_data(hashtag, datatweets)
+    tag_data(hashtag, datatweets)
     plot_data(hashtag, datatweets)
     leaders(hashtag, sorttweets)
     print_table(hashtag, sorttweets)
