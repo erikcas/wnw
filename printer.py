@@ -18,7 +18,7 @@ def print_table(hashtag, sorttweets, top=10):
     plt.axis('off')
     tab = ax.table(cellText=df.values, loc='center', colLabels = ('Naam', 'Aantal'))
     tab.auto_set_font_size(False)
-    tab.set_fontsize(14)
+    tab.set_fontsize(10)
     fig.tight_layout()
 
     #plt.show()
