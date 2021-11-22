@@ -38,7 +38,8 @@ def plot_data(hashtag, datatweets):
     ax.plot(tijd, aantal, c='red')
 
     # Format plot
-    plt.title('WNW tweets per uur sinds 15-11-2021', fontsize=20)
+    titel = f'{hashtag} tweets per uur sinds 22-11-2021'
+    plt.title(titel, fontsize=20)
     plt.xlabel('', fontsize=16)
     fig.autofmt_xdate()
     plt.ylabel('Aantal Tweets', fontsize=16)
