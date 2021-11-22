@@ -58,11 +58,12 @@ def getweets(hashtag, datum):
     csvWriter = csv.writer(csvFile)
 
     hashtweets, sorttweets, datatweets = [], [], []
+    twitter_datum = datetime.strptime(datum, '%d-%m-%Y').strftime('%Y-%m-%d')
 
     hashtwit =f'#{hashtag}'
     counter = 0
     for tweet in tweepy.Cursor(api.search, q = hashtwit,
-            since=datum,count=200).items():
+            since=twitter_datum,count=200).items():
         try:
             # De gebruikers voor de tussenstand
             sorttweets.append(tweet.user.screen_name)
@@ -80,7 +81,7 @@ def getweets(hashtag, datum):
 
     writetweets(hashtag, hashtweets)
     tag_data(hashtag, datatweets)
-    plot_data(hashtag, datatweets)
+    plot_data(hashtag, datatweets, datum)
     leaders(hashtag, sorttweets)
     print_table(hashtag, sorttweets)
     post_twitter(hashtag, counter)
