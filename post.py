@@ -20,7 +20,7 @@ auth.set_access_token(access_token, access_token_secret)
 # calling the api
 api = tweepy.API(auth)
 
-def post_twitter(hashtag, counter):
+def post_twitter(hashtag, counter, tabel):
     text = f'#{hashtag} fun facts\n\n \
         Aantal tweets: {counter}\n \
         Top 10 posters en grafische historie in de plaatjes hieronder\n\n \
@@ -29,7 +29,10 @@ def post_twitter(hashtag, counter):
     media_ids = []
     png1 = f'{hashtag}_tweet_top10.png'
     png2 = f'{hashtag}_tweet_graph.png'
-    filenames = [png1, png2]
+    if tabel == 'yes':
+        filenames = [png1, png2]
+    else:
+        filenames = [png2]
     for filename in filenames:
         res = api.media_upload(filename)
         media_ids.append(res.media_id)

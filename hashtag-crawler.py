@@ -51,7 +51,7 @@ def writetweets(hashtag, tweets):
         writer.writerow(["screen_name", "id", "created_at", "trucated text"])
         writer.writerows(tweets)
 
-def getweets(hashtag, datum):
+def getweets(hashtag, datumi, tabel):
     outputfile = f"{hashtag}_tweets.csv"
     sortoutput = f"{hashtag}_tweets_sorted.csv"
     csvFile = open(outputfile, 'a')
@@ -83,13 +83,18 @@ def getweets(hashtag, datum):
     tag_data(hashtag, datatweets)
     plot_data(hashtag, datatweets, datum)
     leaders(hashtag, sorttweets)
-    print_table(hashtag, sorttweets)
-    post_twitter(hashtag, counter)
+    if tabel == 'yes':
+        print_table(hashtag, sorttweets)
+    post_twitter(hashtag, counter, tabel)
     
 
 try:
     hashtek = sys.argv[1]
     datum = sys.argv[2]
-    getweets(hashtek, datum)
+    if sys.argv[3]:
+        tabel = sys.argv[3]
+    else:
+        tabel = 'no'
+    getweets(hashtek, datum, tabel)
 except IndexError:
     print('no hashtag given')
