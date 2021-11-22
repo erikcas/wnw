@@ -15,7 +15,7 @@ def tag_data(hashtag, datatweets):
     stand = counts.items()
     pd.DataFrame(stand).to_csv(filename, header=['Tijd', 'Aantal'])
 
-def plot_data(hashtag, datatweetsi, datum):
+def plot_data(hashtag, datatweets, datum):
     filename = f'{hashtag}_tweet_graph.csv'
     with open(filename) as f:
         reader = csv.reader(f)
