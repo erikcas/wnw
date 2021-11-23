@@ -4,7 +4,7 @@ import datetime
 import time
 import sys
 import matplotlib.pyplot as plt
-from datetime import datetime
+from datetime import datetime, timedelta
 from collections import defaultdict
 
 def tag_data(hashtag, datatweets):
@@ -23,7 +23,7 @@ def plot_data(hashtag, datatweets, datum):
 
         tijd, aantal = [], []
         for row in reader:
-            datumtijd = datetime.strptime(row[1], '%Y-%m-%d %H:%M:%S')
+            datumtijd = (datetime.strptime(row[1], '%Y-%m-%d %H:%M:%S') + timedelta(hours=1))
             try:
                 aantallen = int(row[2])
             except ValueError:
