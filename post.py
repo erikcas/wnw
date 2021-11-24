@@ -20,11 +20,11 @@ auth.set_access_token(access_token, access_token_secret)
 # calling the api
 api = tweepy.API(auth)
 
-def post_twitter(hashtag, counter, tabel):
+def post_twitter(hashtag, counter, tabel, datum):
     text = f'#{hashtag} fun facts\n\n \
-        Aantal tweets: {counter}\n \
-        Top 10 posters en grafische historie in de plaatjes hieronder\n\n \
-        Volg ook @inter_crap voor breaking news!'
+    Aantal tweets sinds {datum}: {counter}\n \
+    Grafische voorstelling in de plaatje(s) hieronder\n\n \
+    Volg ook @inter_crap voor breaking news!'
 
     media_ids = []
     png1 = f'{hashtag}_tweet_top10.png'

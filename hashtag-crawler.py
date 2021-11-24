@@ -78,7 +78,7 @@ def getweets(hashtag, datumi, tabel):
     leaders(hashtag, sorttweets)
     if tabel == 'yes':
         print_table(hashtag, sorttweets)
-    post_twitter(hashtag, counter, tabel)
+    post_twitter(hashtag, counter, tabel, datum)
     
 
 try:
