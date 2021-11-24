@@ -29,7 +29,7 @@ def post_twitter(hashtag, counter, tabel, datum):
     media_ids = []
     png1 = f'{hashtag}_tweet_top10.png'
     png2 = f'{hashtag}_tweet_graph.png'
-    if tabel == 'yes':
+    if tabel == 'ja':
         filenames = [png1, png2]
     else:
         filenames = [png2]

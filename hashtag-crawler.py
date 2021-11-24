@@ -76,7 +76,7 @@ def getweets(hashtag, datumi, tabel):
     tag_data(hashtag, datatweets)
     plot_data(hashtag, datatweets, datum)
     leaders(hashtag, sorttweets)
-    if tabel == 'yes':
+    if tabel == 'ja':
         print_table(hashtag, sorttweets)
     post_twitter(hashtag, counter, tabel, datum)
     
@@ -87,7 +87,7 @@ try:
     if sys.argv[3]:
         tabel = sys.argv[3]
     else:
-        tabel = 'no'
+        tabel = 'nee'
     getweets(hashtek, datum, tabel)
 except IndexError:
     print('no hashtag given')
