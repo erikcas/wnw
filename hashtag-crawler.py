@@ -3,9 +3,7 @@
 import tweepy
 import csv
 import pandas as pd
-#import datetime
 from datetime import datetime
-import time
 import sys
 from collections import defaultdict
 from tag_hourly import tag_data, plot_data
@@ -52,11 +50,6 @@ def writetweets(hashtag, tweets):
         writer.writerows(tweets)
 
 def getweets(hashtag, datum):
-    outputfile = f"{hashtag}_tweets.csv"
-    sortoutput = f"{hashtag}_tweets_sorted.csv"
-    csvFile = open(outputfile, 'a')
-    csvWriter = csv.writer(csvFile)
-
     hashtweets, sorttweets, datatweets = [], [], []
     twitter_datum = datetime.strptime(datum, '%d-%m-%Y').strftime('%Y-%m-%d')
 
