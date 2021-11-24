@@ -4,7 +4,6 @@ import tweepy
 import csv
 import pandas as pd
 from datetime import datetime
-import time
 from time import perf_counter
 import sys
 from collections import defaultdict
@@ -51,7 +50,6 @@ def writetweets(hashtag, tweets):
         writer.writerows(tweets)
 
 def getweets(hashtag1, hashtag2, datum):
-
     hashtweets, hashtweets2, sorttweets, sorttweets2, datatweets, datatweets2 = [], [], [], [], [], []
     twitter_datum = datetime.strptime(datum, '%d-%m-%Y').strftime('%Y-%m-%d')
 
