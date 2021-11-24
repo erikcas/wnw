@@ -13,7 +13,7 @@ def tag_data(hashtag, datatweets):
     stand = counts.items()
     pd.DataFrame(stand).to_csv(filename, header=['Tijd', 'Aantal'])
 
-def plot_data(hashtag, datatweets, datum):
+def plot_data(tek, hashtag, datatweets, datum):
     filename = f'{hashtag}_tweet_graph.csv'
     with open(filename) as f:
         reader = csv.reader(f)
@@ -36,7 +36,7 @@ def plot_data(hashtag, datatweets, datum):
     ax.plot(tijd, aantal, c='red')
 
     # Format plot
-    titel = f'{hashtag} tweets per uur sinds {datum}'
+    titel = f'{tek}{hashtag} tweets per uur sinds {datum}'
     plt.title(titel, fontsize=20)
     plt.xlabel('', fontsize=16)
     fig.autofmt_xdate()

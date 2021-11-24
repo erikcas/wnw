@@ -49,11 +49,11 @@ def writetweets(hashtag, tweets):
         writer.writerow(["screen_name", "id", "created_at", "trucated text"])
         writer.writerows(tweets)
 
-def getweets(hashtag, datumi, tabel):
+def getweets(tek, hashtag, datumi, tabel):
     hashtweets, sorttweets, datatweets = [], [], []
     twitter_datum = datetime.strptime(datum, '%d-%m-%Y').strftime('%Y-%m-%d')
 
-    hashtwit =f'#{hashtag}'
+    hashtwit =f'{tek}{hashtag}'
     counter = 0
     for tweet in tweepy.Cursor(api.search, q = hashtwit,
             since=twitter_datum,count=200).items():
@@ -74,20 +74,37 @@ def getweets(hashtag, datumi, tabel):
 
     writetweets(hashtag, hashtweets)
     tag_data(hashtag, datatweets)
-    plot_data(hashtag, datatweets, datum)
+    plot_data(tek, hashtag, datatweets, datum)
     leaders(hashtag, sorttweets)
     if tabel == 'ja':
         print_table(hashtag, sorttweets)
-    post_twitter(hashtag, counter, tabel, datum)
+    post_twitter(tek, hashtag, counter, tabel, datum)
     
 
 try:
     hashtek = sys.argv[1]
+    tek = '#'
     datum = sys.argv[2]
     if sys.argv[3]:
         tabel = sys.argv[3]
     else:
         tabel = 'nee'
-    getweets(hashtek, datum, tabel)
+    getweets(tek, hashtek, datum, tabel)
 except IndexError:
-    print('no hashtag given')
+    q = input('Geen of onvoldoende criteria ingegeven. Handmatig invoeren (j|n): ')
+    if q =='n':
+        sys.exit()
+    else:
+        q = input('Zoeken naar hastag (j|n): ')
+        if q == 'j':
+            tek = '#'
+        else:
+            tek = ''
+        hashtek = input('Zoekterm (let op: voor een hastag 1 woord zonder "#" invoeren): ')
+        datum = input('Sinds welke datum (dd-mm-jjjj): ')
+        q = ('Tabel maken van de top 10 posters (j|n): ')
+        if q == 'j':
+            tabel = 'ja'
+        else:
+            tabel = 'nee'
+    getweets(tek, hashtek, datum, tabel)
